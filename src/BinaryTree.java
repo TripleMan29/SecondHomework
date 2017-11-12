@@ -111,13 +111,12 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
                     if (n == root) root = n.right;
                     else if (n == parent.right) parent.right = n.right;
                     else parent.left = n.right;
-                    n.right.left = n.left;
-                    n.right = n.right.right;
                 } else {
                     Node<T> m = n.right;
                     while (m.left != null) m = m.left;
-                    if (parent == n) m.left = n.left;
-                    else m.left = n.left;
+                    if (n == root) root = m.left;
+                    else if (n == parent.right) parent.right = m.left;
+                    else parent.left = m.left;
 
                 }
             }
@@ -171,30 +170,32 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
     public class BinaryTreeIterator implements Iterator<T> {
         private Node<T> current = null;
         private int count = 0;
-        private int poof = size;
+        private int poof = 0;
 
         private BinaryTreeIterator() {
         }
 
         private void findNext() {
-            if (root != null) iter(root);
+            if (poof < size) {
+                count = 0;
+                iter(root);
+                poof++;
+            }
+            else current = null;
         }
 
         private void iter(Node<T> n) {
             if (n.left != null) iter(n.left);
-            if (n.right != null) iter(n.right);
+            if (count == poof) current = n;
             count++;
-            if (count == poof) {
-                poof--;
-                count = 0;
-                current = n;
-            }
+            if (n.right != null) iter(n.right);
+
 
         }
 
         @Override
         public boolean hasNext() {
-            return poof > 0;
+            return poof < size;
         }
 
         @Override
