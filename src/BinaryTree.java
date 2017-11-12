@@ -55,26 +55,6 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         return right == null || right.value.compareTo(node.value) > 0 && checkInvariant(right);
     }
 
-  /*  private Node<T> findForRemove(T value) {
-        if (root == null) return null;
-        return findForRemove(root, value);
-    }
-
-    private Node<T> findForRemove(Node<T> start, T value) {
-        int comparison = value.compareTo(start.value);
-        if (comparison == 0) {
-            return start;
-        }
-        else if (comparison < 0) {
-            if (start.left == null) return start;
-            return findForRemove(start.left, value);
-        }
-        else {
-            if (start.right == null) return start;
-            return find(start.right, value);
-        }
-    }*/
-
     @Override
     public boolean remove(Object o) {
         T value = (T) o;
@@ -123,23 +103,6 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         }
     }
 
-    public static void main(String[] args) {
-        BinaryTree<Integer> bb = new BinaryTree();
-        int b = 1;
-        bb.add(250);
-        bb.add(329);
-        bb.add(90);
-        bb.add(252);
-        bb.add(100);
-        bb.add(85);
-        bb.add(73);
-        bb.add(200);
-        bb.add(101);
-        bb.add(1);
-        bb.add(62);
-        bb.remove(b);
-        System.out.println(bb.contains(b));
-    }
 
     @Override
     public boolean contains(Object o) {
